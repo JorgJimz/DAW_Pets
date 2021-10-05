@@ -1,8 +1,105 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Index";
 }
+<!-- Header-->
+<style>
+    .bg-pets {
+        background-color: #6ed7ea;
+    }
+    .banner {
+        background-image: url('@Url.Content("~/img/bn1.jpg")');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    .badge-pets {
+        position: relative;
+        top: 30px;
+    }
+
+    .badge-border-warning {
+        border: 10px solid;
+        border-color: #f6c23e;
+    }
+
+    .badge-border-danger {
+        border: 10px solid;
+        border-color: #e74a3b;
+    }
+    
+</style>
+<header class="py-5 banner bg-pets">
+    <div class="container px-5">
+        <div class="row gx-5">
+            <div class="col-lg-6 bg-pets">
+                <div class="text-center my-5">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Ellos son parte de la familia</h1>
+                    <p class="lead text-black-50 mb-4 font-weight-bolder">¡Ayúdalos a encontrar su hogar!</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">¡Adoptar!</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Perdidos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Features section-->
+<section class="py-5 border-bottom justify-content-center" id="features">
+    <div class="text-center mb-5">
+        <h1 class="fw-bolder text-black">Servicios</h1>
+    </div>
+    <div class="container px-5 my-5 text-center">
+        <div class="row gx-5">
+            <div class="col-lg-2 mb-5 mb-lg-0"></div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-heart"></i></div>
+                <h2 class="h4 fw-bolder">Adopción</h2>
+                <p>Adopta un peludo e inicia una historia de complicidad juntos.</p>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-search"></i></div>
+                <h2 class="h4 fw-bolder">Búsqueda</h2>
+                <p>¡Hey! hay peludos perdidos que necesitan de nuestra ayuda.</p>                
+            </div>
+            <div class="col-lg-2 mb-5 mb-lg-0"></div>
+        </div>
+    </div>
+</section>
+<!-- Wall section-->
+<section class="py-5 border-bottom" id="wall">
+    <div class="text-center mb-5">
+        <h1 class="fw-bolder text-black">Muro De Mascotas</h1>
+        <p class="lead mb-0">¡Echa un vistazo a nuestros amigos peludos!</p>
+    </div>
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-5 mb-lg-0 text-center">
+                <div class="text-center">
+                    <h4><span class="badge badge-danger badge-pets">Me perdí</span></h4>
+                    <img class="img-fluid rounded-circle mb-4 badge-border-danger" src="https://www.androidfreeware.net/img2/com-dogsimulator-rottweiler.jpg" alt="...">
+                </div>
+                <h2 class="h4 fw-bolder">Rocky</h2>
+                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">¡Conóceme!</a>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0 text-center">
+                <div class="text-center">
+                    <h4><span class="badge badge-warning text-black badge-pets">Adóptame</span>    </h4>
+                    <img class="img-fluid rounded-circle mb-4 badge-border-warning" src="https://gamehag.com/static/avatar/1914105_max.jpg" alt="...">
+                </div>
+                <h2 class="h4 fw-bolder">Duque</h2>
+                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">¡Conóceme!</a>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0 text-center">
+                <div class="text-center">
+                    <h4><span class="badge badge-danger badge-pets">Me perdí</span></h4>
+                    <img class="img-fluid rounded-circle mb-4 badge-border-danger" src="https://pbs.twimg.com/profile_images/617810672953364480/FPDye7YZ_400x400.jpg" alt="...">
+                </div>
+                <h2 class="h4 fw-bolder">Max</h2>
+                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">¡Conóceme!</a>
+            </div>
+        </div>
+    </div>
+</section>
