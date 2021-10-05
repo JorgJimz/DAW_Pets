@@ -21,7 +21,7 @@ namespace DAW_Pets.Controllers
         {
             var db = new DBESANDWContext();
             if (db.Usuario.Any(x => x.Login.Equals(user) && x.Password.Equals(pwd))) {
-                return RedirectToAction();
+                return RedirectToAction("Index","Home");
             }
             return View("Index");
         }
