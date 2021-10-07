@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -20,7 +21,6 @@ namespace DAW_Pets.Models
         public string Materno { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
-
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

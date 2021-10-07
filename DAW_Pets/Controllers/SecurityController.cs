@@ -1,10 +1,10 @@
 ﻿using DAW_Pets.Models;
+using DAW_Pets.Models.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Proxies;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAW_Pets.Controllers
 {
@@ -20,11 +20,22 @@ namespace DAW_Pets.Controllers
         public ActionResult Login(string user, string pwd)
         {
             var db = new DBESANDWContext();
-            if (db.Usuario.Any(x => x.Login.Equals(user) && x.Password.Equals(pwd))) {
+            var usr = db.Usuario.Include(p => p.Persona).Where(x => x.Login.Equals(user) && x.Password.Equals(pwd)).SingleOrDefault();
+            if (usr is not null) {
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "logged", usr);
                 return RedirectToAction("Index","Home");
             }
             return View("Index");
         }
-        
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index","Security");
+        }
+
+
+
     }
 }
