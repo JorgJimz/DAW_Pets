@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace DAW_Pets.Models.Helpers
@@ -18,6 +20,12 @@ namespace DAW_Pets.Models.Helpers
         {
             var value = session.GetString(key);
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+        }
+
+        public static string GetValue(IPrincipal User, string Property)
+        {
+            var r = ((ClaimsIdentity)User.Identity).FindFirst(Property);
+            return r == null ? "" : r.Value;
         }
     }
 }

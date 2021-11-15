@@ -28,6 +28,7 @@ namespace DAW_Pets.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.;Database=DB-ESAN-DW;Trusted_Connection=true;MultipleActiveResultSets=true");
             }
         }
@@ -105,6 +106,12 @@ namespace DAW_Pets.Models
                     .HasMaxLength(100)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Fijo).HasMaxLength(20);
+
                 entity.Property(e => e.Materno)
                     .HasMaxLength(50)
                     .IsFixedLength(true);
@@ -122,12 +129,14 @@ namespace DAW_Pets.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Telefono)
-                    .HasMaxLength(15)
-                    .IsFixedLength(true);
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.TipDoc)
                     .HasMaxLength(10)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.Trabajo).HasMaxLength(20);
             });
 
             modelBuilder.Entity<Rol>(entity =>
@@ -139,13 +148,11 @@ namespace DAW_Pets.Models
 
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.Property(e => e.Login)
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Login).HasMaxLength(500);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(15)
-                    .IsFixedLength(true);
+                entity.Property(e => e.Password).HasMaxLength(500);
+
+                entity.Property(e => e.Sal).HasMaxLength(500);
 
                 entity.HasOne(d => d.Persona)
                     .WithMany(p => p.Usuario)

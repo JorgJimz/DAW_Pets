@@ -34,6 +34,7 @@
     </main>
     @{await Html.RenderPartialAsync("_Footer");}
     <script src="@Url.Content("~/js/jquery.js")"></script>
-    <script src="@Url.Content("~/css/bootstrap/dist/js/bootstrap.js")"></script>
+    <script src="@Url.Content("~/css/bootstrap/dist/js/bootstrap.js")"></script>   
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

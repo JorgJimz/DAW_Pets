@@ -9,6 +9,7 @@ namespace DAW_Pets.Models
     {
         public int Id { get; set; }
         public string Login { get; set; }
+        public string Sal { get; set; }
         public string Password { get; set; }
         public int? PersonaId { get; set; }
         public int? RolId { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Proxies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace DAW_Pets
 {
@@ -24,6 +25,12 @@ namespace DAW_Pets
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<DBESANDWContext>(options => { options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevConnection")); });
             services.AddSession();
+            services.AddAuthentication(o => {
+                o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                o.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(op => { op.LoginPath = "/Security"; });
+               
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,10 +50,10 @@ namespace DAW_Pets
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseSession();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
