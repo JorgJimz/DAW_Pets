@@ -1,85 +1,84 @@
 ﻿@model DAW_Pets.Models.Persona
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-
-<h4>Persona</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<section class="container py-4">
+    <form class="row" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6 mb-3">
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="TipDoc" class="control-label"></label>
-                <input asp-for="TipDoc" class="form-control" />
+                <input asp-for="TipDoc" class="form-control" disabled />
                 <span asp-validation-for="TipDoc" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="NumDoc" class="control-label"></label>
-                <input asp-for="NumDoc" class="form-control" />
+                <input asp-for="NumDoc" class="form-control" disabled />
                 <span asp-validation-for="NumDoc" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" disabled />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Paterno" class="control-label"></label>
-                <input asp-for="Paterno" class="form-control" />
+                <input asp-for="Paterno" class="form-control" disabled />
                 <span asp-validation-for="Paterno" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Materno" class="control-label"></label>
-                <input asp-for="Materno" class="form-control" />
+                <input asp-for="Materno" class="form-control" disabled />
                 <span asp-validation-for="Materno" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Fijo" class="control-label"></label>
-                <input asp-for="Fijo" class="form-control" />
+                <input asp-for="Fijo" class="form-control" disabled />
                 <span asp-validation-for="Fijo" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
+                <input asp-for="Telefono" class="form-control" disabled />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Trabajo" class="control-label"></label>
-                <input asp-for="Trabajo" class="form-control" />
+                <input asp-for="Trabajo" class="form-control" disabled />
                 <span asp-validation-for="Trabajo" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" disabled />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
+                <input asp-for="Direccion" class="form-control" disabled />
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-12 text-right">
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Activar" class="btn btn-pets-turquoise" />
+                <a class="btn btn-light" asp-action="Index">Regresar</a>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+    </form>
+</section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-</body>
-</html>

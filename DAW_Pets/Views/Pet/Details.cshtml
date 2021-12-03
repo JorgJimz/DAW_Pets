@@ -1,0 +1,388 @@
+﻿@model DAW_Pets.Models.Mascota
+@using DAW_Pets.Models.Helpers
+<style type="text/css">
+    .bg-daw-pets {
+        /*background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.5) 100%), url(Url.Content("~/img/oficial_bg.jpg") );*/
+        background-image: url(@Url.Content("~/img/oficial_bg.jpg") );
+    }
+
+    .border-daw-pet-aqua {
+        border-color: #16a1bb !important;
+    }
+
+        .border-daw-pet-aqua h6 {
+            color: #16a1bb !important;
+        }
+
+
+       .fg-turquoise {
+        color: turquoise;
+    }
+
+    .bg-turquoise {
+        background-color: turquoise;
+    }
+
+    .bg-pets-gray {
+
+        --color: silver;
+    }
+
+    .card-header {
+        color: white;
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
+        background-color: darkturquoise;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .selected-bar {
+        --color: #16a1bb;
+    }
+
+    .nav-link {
+        color: #495057 !important;
+    }
+
+        .nav-link.active {
+            font-weight: bold;
+            color: #16a1bb !important;
+        }
+
+    .brd-pet {
+        background-color: paleturquoise;
+        border: 5px solid paleturquoise;
+    }
+
+    .frm-cmm-pet {
+        color: white;
+        background-color: darkturquoise;
+        border: 1px solid darkturquoise;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .usmall {
+        font-size: 0.6em;
+    }
+
+    .round-comment {
+        width: 100%;
+        height: 132px;
+        border-radius: 50px;
+        background: paleturquoise;
+        text-align: center;
+        position: relative;
+        font-size: 15px;
+    }
+
+        .round-comment::after {
+            position: absolute;
+            content: "";
+            border-top: 40px solid paleturquoise;
+            border-right: 30px solid transparent;
+            top: 130px;
+            left: 40px;
+        }
+
+
+</style>
+<div class="modal-body p-0" style="height: 695px;">
+    @if (Model.Id != 0)
+    {
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-4 bg-daw-pets">
+                    <div class="row mb-2">
+                        <div class="col-12 text-center p-3">
+                            <img class="img-fluid rounded-circle mb-2 brd-pet" src="https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=360,height=360,fit=cover/https://cdn.wamiz.fr/animal/breed/pictures/613f5a196dba9452676561.jpg" width="290" height="390" />
+                        </div>
+                        <div class="row text-white">
+                            <div class="col-md-3">
+                                <span class="fa-stack fa-2x">
+                                    <i class="fas fa-square fa-stack-2x fg-turquoise"></i>
+                                    <i class="fas fa-dog fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3><b>@Model.Nombre</b></h3>
+                                    </div>
+                                    <div class="col-12">
+                                        <h6>@Model.Raza @Model.Color</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-3 text-white">
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Peso</b></div>
+                            <div class="col-md-9">@Model.Peso</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Altura</b></div>
+                            <div class="col-md-9">@Model.Altura</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Edad</b></div>
+                            <div class="col-md-9">@Model.Edad</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Tamaño</b></div>
+                            <div class="col-md-9">@Model.Tamaño</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Caracter</b></div>
+                            <div class="col-md-9">@Model.Caracter</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Dieta</b></div>
+                            <div class="col-md-9">@Model.Alimentacion</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-1"><b>Situación</b></div>
+                            <div class="col-md-9"><span class="badge bg-turquoise">@(Model.Situacion == "A"? "En Adopción":"Perdido")</span></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6 text-center"><button class="btn btn-pets-turquoise">Adóptame</button></div>
+                            <div class="col-md-6 text-center"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Salir</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 overflow-auto h-100">
+                    <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Perfil</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Comentarios</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="solicitud-tab" data-bs-toggle="tab" data-bs-target="#solicitud" type="button" role="tab" aria-controls="profile" aria-selected="false">Adopción</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row pt-2">
+                                <div class="col-md-12 mb-2">
+                                    <div class="card">
+                                        <h5 class="card-header"><i class="fa fa-paw"></i> Sobre mi</h5>
+                                        <div class="card-body">
+                                            @Model.Descripcion
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <div class="card">
+                                        <h5 class="card-header"><i class="fa fa-home"></i> Habitat</h5>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3 mb-1"><b>Ubicación</b></div>
+                                                <div class="col-md-9">@Model.Direccion</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 mb-1"><b>Clima</b></div>
+                                                <div class="col-md-9">@Model.Clima</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 mb-1"><b>Habitat</b></div>
+                                                <div class="col-md-9">@Model.Habitat</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <div class="card">
+                                        <h5 class="card-header"><i class="fa fa-syringe"></i> Vacunas</h5>
+                                        <div class="card-body">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Vacuna</th>
+                                                        <th>Laboratorio</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0, j = 1; i < Model.Vacuna.Count; i++, j++)
+                                                    {
+                                                        <tr>
+                                                            <td>@(j)</td>
+                                                            <td><span class="badge bg-info">@Model.Vacuna.ElementAt(i).VacunaNavigation.Valor</span></td>
+                                                            <td>@Model.Vacuna.ElementAt(i).VacunaNavigation.Atributo1</td>
+                                                            <td>@Model.Vacuna.ElementAt(i).Fecha.ToShortDateString()</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <div class="card">
+                                        <h5 class="card-header"><i class="fa fa-heart"></i> Salud</h5>
+                                        <div class="card-body">
+                                            <div class="row gy-5">
+                                                <div class="col-6">
+                                                    <div class="p-3 border bg-light bg-pets-gray">
+                                                        <table id="labels-example-2" class="charts-css column show-heading show-labels data-spacing-5" style="height: 250px;">
+                                                            <caption><b>Esperanza de Vida (Años)</b></caption>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col"> Month </th>
+                                                                    <th scope="col"> Progress </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (Maestro m in ViewBag.Vida)
+                                                                {
+                                                                    <tr>
+                                                                        <th scope="row">@m.Valor</th>
+                                                                        <td class="@((m.Selected)? "selected-bar":"")" style="--size: @(m.Atributo3)"><span class="data text-white"><b>@(   (m.Selected) ? @Model.EsperanzaVida : ""  )</b></span></td>
+                                                                    </tr>
+
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="p-3 border bg-light bg-pets-gray">
+                                                        <table id="labels-example-2" class="charts-css column show-heading show-labels data-spacing-5" style="height: 250px;">
+                                                            <caption><b>Actividad Física Recomendada</b></caption>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col"> Month </th>
+                                                                    <th scope="col"> Progress </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                @foreach (Maestro m in ViewBag.Actividad)
+                                                                {
+                                                                    <tr>
+                                                                        <th scope="row"> @m.Valor </th>
+                                                                        <td class="@((m.Selected)? "selected-bar":"")" style="--size:@(m.Atributo1)"><span class="data"></span></td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row h-100 pt-3" style="height: 613px !important;">
+                                @{ bool logged = User.Identity.IsAuthenticated; }
+                                @if (!logged)
+                                {
+                                    <div class="alert alert-info mb-0 rounded-0 text-center" role="alert">
+                                        Necesitas <a href="@Url.Action("Index","Security")"><b>iniciar sesión</b></a> para dejar tu comentario.
+                                    </div>
+                                }
+                                <div id="CommentSection" class="@( (logged)? "col-7":"col-8 mx-auto" )  overflow-auto h-100">
+                                    @foreach (Comentario c in Model.Comentario)
+                                    {
+                                        <div class="row g-2 pb-3">
+                                            <div class="col-12">
+                                                <div class="p-3">
+                                                    <div class="round-comment">
+                                                        <div class="row">
+                                                            <div class="col-md-12 my-2">
+                                                                <i class="fa fa-user-circle"></i> <span><b> @( string.Format("{0} {1}",c.Usuario.Persona.Nombre, c.Usuario.Persona.Paterno) )</b></span> - <small class="usmall">@c.Fecha</small>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                @c.Comentario1
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-5" style="@( (logged)? string.Empty : "display:none;" )">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card frm-cmm-pet" style="min-height:600px !important">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3"><i class="fa fa-comment"></i> Déjanos un comentario</h5>
+                                                    <form asp-action="CreateComment" method="post" data-ajax="true" data-ajax-method="post" data-ajax-success="refresh" data-ajax-loading="#loader">
+                                                        <input type="hidden" asp-for="NeoComentario.UsuarioId" value="@ClaimHelper.GetNameIdentifier(User)" />
+                                                        <input type="hidden" asp-for="NeoComentario.MascotaId" value="@Model.Id" />
+                                                        <div class="mb-3"><textarea asp-for="NeoComentario.Comentario1" class="form-control" style="min-height: 460px !important; resize: none"></textarea></div>
+                                                        <div class="d-grid gap-2">
+                                                            <input id="btnGrabarComentario" type="submit" value="Enviar" class="btn btn-light" onclick="this.style.display = 'none'" />
+                                                            <button id="loader" class="btn btn-light" style="display: none" type="button" disabled>
+                                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                                Enviando...
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="solicitud" role="tabpanel" aria-labelledby="profile-tab">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <div class="alert alert-info mb-0 rounded-0 text-center mt-3" role="alert">
+                                    Necesitas <a href="@Url.Action("Index","Security")"><b>iniciar sesión</b></a> para acceder a esta sección.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row h-100 pt-3" style="height: 613px !important;">
+                                    @{await Html.RenderPartialAsync("../Solicitud/Create", new Solicitud(), new ViewDataDictionary(ViewData) { { "H", ViewBag.Habitat },{ "MascotaId", Model.Id } }); }
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    refresh = function (xhr) {
+        var comment = xhr.objeto;
+        $("#btnGrabarComentario").css("display", "block");
+        $("#NeoComentario_Comentario1").val('');
+        $("#CommentSection").prepend('<div class="row g-2 pb-3 animate__animated animate__slideInLeft">'+
+                                            '<div class="col-12">' +
+                                                '<div class="p-3">' +
+                                                    '<div class="round-comment">' +
+                                                        '<div class="row">' +
+            '<div class="col-md-12 my-2">' +
+            '<i class="fa fa-user-circle"></i> <span><b>' + '@ClaimHelper.GetName(User)' + '</b></span><br /><small class="usmall">' + comment.fecha + '</small>' +
+                                                            '</div>' +
+                                                            '<div class="col-md-12">' +
+            comment.comentario1 +
+                                                            '</div>' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>');
+    }
+</script>

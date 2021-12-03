@@ -10,6 +10,9 @@
     <!-- Bootstrap core CSS -->
     <link href="@Url.Content("~/css/bootstrap/dist/css/bootstrap.css")" rel="stylesheet">
     <link href="@Url.Content("~/css/carousel.css")" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/css/charts.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")">
+    <link rel="stylesheet" href="@Url.Content("~/lib/animate.css/animate.css")">
     <script src="https://kit.fontawesome.com/bd1570aeac.js" crossorigin="anonymous"></script>
     <style>
         .bd-placeholder-img {
@@ -18,6 +21,10 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             user-select: none;
+        }
+
+        .btn:hover {
+            color: white !important;
         }
 
         @@media (min-width: 768px) {
@@ -34,7 +41,9 @@
     </main>
     @{await Html.RenderPartialAsync("_Footer");}
     <script src="@Url.Content("~/js/jquery.js")"></script>
-    <script src="@Url.Content("~/css/bootstrap/dist/js/bootstrap.js")"></script>   
+    <script src="@Url.Content("~/css/bootstrap/dist/js/bootstrap.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js")"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,11 +1,15 @@
 ﻿@using DAW_Pets.Models.Helpers;
-@{var logged = SessionHelper.GetObjectFromJson<Usuario>(Context.Session, "logged");}
+@using System.Security.Claims;
 <style>
     .bg-gradient-primary {
         color: white !important;
         background-color: #4e73df;
         background-image: linear-gradient( 180deg,#4e73df 10%,#224abe 100%);
         background-size: cover;
+    }
+
+    .bg-modal {
+        background-color: darkturquoise !important;
     }
 </style>
 <header>
@@ -23,34 +27,53 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index","Pet")">Muro de Mascotas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index","Person")">Usuario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mascota</a>
-                    </li>
-
+                    @if (User.Identity.IsAuthenticated && User.HasClaim(ClaimTypes.Role, "Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Person")">Usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Create","Pet")">Mascota</a>
+                        </li>
+                    }
                 </ul>
 
-                @if (logged is null) { 
-            <div class="col-md-3 text-end">
-                <a href="@Url.Action("Index","Security")" class="btn btn btn-outline-light me-2">Iniciar Sesión</a>
-                <a href="#" type="button" class="btn btn-primary">Registrarme</a>
-            </div>
-                } else {
-            <div class="dropdown text-end">                
-                <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="text-capitalize">Hola, @logged.Persona.Nombre</span><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Configuración</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Logout","Security")">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-                }      
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-3 text-end">
+                        <a href="@Url.Action("Index","Security")" class="btn btn btn-outline-light me-2">Iniciar Sesión</a>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#FrmRegistro">Registrarme</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="text-capitalize">Hola, @ClaimHelper.GetClaim(User, ClaimTypes.Name)</span><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Logout","Security")">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
     </nav>
 </header>
+<!-- Modal -->
+<div class="modal fade" id="FrmRegistro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-modal text-white">
+                <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-paw"></i> ¡Regístrate!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                @{await Html.RenderPartialAsync("../Person/_Register", new Persona(){Estado = 0});}                              
+            </div>            
+        </div>
+    </div>
+</div>    

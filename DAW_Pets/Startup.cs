@@ -7,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using DAW_Pets.LogicaNegocio.Interface;
+using DAW_Pets.LogicaNegocio;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace DAW_Pets
 {
@@ -22,15 +26,20 @@ namespace DAW_Pets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IWebServiceEngine, WebServiceEngine>();
+            services.AddScoped<IMaestro, MaestroEngine>();
+            services.AddScoped<IMascota, MascotaEngine>();
+                     
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<DBESANDWContext>(options => { options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevConnection")); });
             services.AddSession();
-            services.AddAuthentication(o => {
+            services.AddAuthentication(o =>
+            {
                 o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 o.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             }).AddCookie(op => { op.LoginPath = "/Security"; });
-               
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +62,7 @@ namespace DAW_Pets
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
-           
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

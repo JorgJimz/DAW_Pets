@@ -7,25 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAW_Pets.Models.Helpers;
 using DAW_Pets.Models;
+using DAW_Pets.LogicaNegocio.Interface;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DAW_Pets.Controllers
 {
     public class PersonController : Controller
     {
-        private readonly DBESANDWContext _context;
+        private readonly IWebServiceEngine _ws;
 
-        public PersonController(DBESANDWContext context)
+        public PersonController(IWebServiceEngine _ws)
         {
-            _context = context;
+            this._ws = _ws;
         }
 
-        // GET: Person
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Persona.ToListAsync());
+            var response = await _ws.GetAll_Service<Persona>("Servicios:Persona");
+            return View(response.Listado);
         }
 
-        // GET: Person/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,50 +35,36 @@ namespace DAW_Pets.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Persona
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
+            var persona = await _ws.GetById_Service<Persona>("Servicios:Persona", id.Value.ToString());
+            if (persona.Objeto == null)
             {
                 return NotFound();
             }
 
-            return View(persona);
+            return View(persona.Objeto);
         }
 
-        // GET: Person/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Person/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TipDoc,NumDoc,Nombre,Paterno,Materno,Fijo,Telefono,Trabajo,Email,Direccion,Pwd,ConfirmPwd")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Id,TipDoc,NumDoc,Nombre,Paterno,Materno,Fijo,Telefono,Trabajo,Email,Direccion,Pwd,ConfirmPwd,Estado")] Persona persona)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(persona);
-                _context.SaveChanges();
-                HashedPassword hashed = HashHelper.Hash(persona.Pwd);
-                Usuario user = new Usuario() {
-                    Login = persona.Email,
-                    Password = hashed.Password,
-                    Sal = hashed.Salt,
-                    PersonaId = persona.Id,
-                    RolId = 1
-                };
-                _context.Usuario.Add(user);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                var rs = await _ws.Post_Service<Persona>("Servicios:Persona", persona);
 
+                ViewBag.Accion = (persona.Estado == 1)? HeaderEnum.Redireccion.ToString(): "";
+                ViewBag.Message = rs.Header.DescRetorno;
             }
-            return View(persona);
+
+            return PartialView("_Info");
         }
 
-        // GET: Person/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,81 +72,38 @@ namespace DAW_Pets.Controllers
                 return NotFound();
             }
 
-            var persona = await _context.Persona.FindAsync(id);
-            if (persona == null)
+            var persona = await _ws.GetById_Service<Persona>("Servicios:Persona", id.Value.ToString());
+            if (persona.Objeto == null)
             {
                 return NotFound();
             }
-            return View(persona);
+            return View(persona.Objeto);
         }
 
-        // POST: Person/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TipDoc,NumDoc,Nombre,Paterno,Materno,Fijo,Telefono,Trabajo,Email,Direccion")] Persona persona)
-        {
-            if (id != persona.Id)
-            {
-                return NotFound();
-            }
+         public async Task<IActionResult> Edit(int id, [Bind("Id")] Persona persona)
+         {
+             if (id != persona.Id)
+             {
+                 return NotFound();
+             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(persona);
-                    await _context.SaveChangesAsync();
+             if (ModelState.GetFieldValidationState("Id") == ModelValidationState.Valid)
+             {
+                 try
+                 {
+                    Usuario u = new Usuario() {  PersonaId = persona.Id };
+                    await _ws.Put_Service<Usuario>("Servicios:Usuario", u, u.PersonaId.ToString());                 
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonaExists(persona.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(persona);
-        }
-
-        // GET: Person/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var persona = await _context.Persona
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
-
-            return View(persona);
-        }
-
-        // POST: Person/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var persona = await _context.Persona.FindAsync(id);
-            _context.Persona.Remove(persona);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool PersonaExists(int id)
-        {
-            return _context.Persona.Any(e => e.Id == id);
-        }
+                 return RedirectToAction(nameof(Index));
+             }
+             return View(persona);
+         }
+        
     }
 }

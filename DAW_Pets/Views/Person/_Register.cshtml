@@ -1,0 +1,112 @@
+﻿@model DAW_Pets.Models.Persona
+<div id="Result">
+    <form class="row p-3" asp-controller="Person" asp-action="Create" method="post" data-ajax="true" data-ajax-method="post"
+          data-ajax-update="#Result" data-ajax-loading="#spinner">
+        <div asp-validation-summary="ModelOnly" class="col-md-12 text-danger"></div>
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <input type="hidden" asp-for="Estado" value="@Model.Estado" />
+                <label asp-for="TipDoc" class="control-label"></label>
+                <select asp-for="TipDoc" class="form-select">
+                    <option value="">[Seleccione]</option>
+                    <option value="DNI">DNI</option>
+                    <option value="CE">Carnet de Extranjería</option>
+                    <option value="PT">Pasaporte</option>
+                </select>
+                <span asp-validation-for="TipDoc" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <label asp-for="NumDoc" class="control-label"></label>
+                <input asp-for="NumDoc" class="form-control" />
+                <span asp-validation-for="NumDoc" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Paterno" class="control-label"></label>
+                <input asp-for="Paterno" class="form-control" />
+                <span asp-validation-for="Paterno" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Materno" class="control-label"></label>
+                <input asp-for="Materno" class="form-control" />
+                <span asp-validation-for="Materno" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Fijo" class="control-label"></label>
+                <input asp-for="Fijo" class="form-control" />
+                <span asp-validation-for="Fijo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label asp-for="Trabajo" class="control-label"></label>
+                <input asp-for="Trabajo" class="form-control" />
+                <span asp-validation-for="Trabajo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-12 mb-3">
+            <label asp-for="Email" class="control-label"></label>
+            <div class="input-group">
+                <span class="input-group-text">@@</span>
+                <input type="text" class="form-control" asp-for="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <label asp-for="Pwd" class="control-label"></label>
+                <input asp-for="Pwd" class="form-control" />
+                <span asp-validation-for="Pwd" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="form-group">
+                <label asp-for="ConfirmPwd" class="control-label"></label>
+                <input asp-for="ConfirmPwd" class="form-control" />
+                <span asp-validation-for="ConfirmPwd" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <div class="form-group">
+                <input id="btnGrabar" type="submit" value="Grabar" class="btn btn-pets-turquoise" onclick="this.style.display = 'none'"/>
+                <button id="spinner" class="btn btn-pets-turquoise" style="display: none" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Enviando...
+                </button>
+                @if (Model.Estado == 1)
+                {
+                    <a class="btn btn-light" asp-action="Index">Regresar</a>
+                }
+
+            </div>
+        </div>
+    </form>
+</div>

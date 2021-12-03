@@ -1,0 +1,184 @@
+﻿@model DAW_Pets.Models.Solicitud
+@using DAW_Pets.Models.Helpers
+@using System.Security.Claims;
+<style>
+    .control-label {
+        font-weight: bolder;
+    }
+
+    .card-header {
+        background-color: darkturquoise !important;
+        color: white !important;
+    }
+</style>
+<section id="Result" class="container py-4">
+    <form asp-action="Create" asp-controller="Solicitud" method="post" data-ajax="true" data-ajax-method="post"
+          data-ajax-update="#Result" data-ajax-loading="#spinner">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">
+                    <i class="fa fa-user"></i>
+                    Datos del Solicitante</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="form-group">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <label class="control-label">Nombre Completo</label>
+                                    <br />
+                                    <input asp-for="MascotaId" type="hidden" value="@ViewData["MascotaId"]" />
+                                    <input asp-for="UsuarioId" type="hidden" value="@ClaimHelper.GetNameIdentifier(User)" />
+                                    @ClaimHelper.GetName(User)
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Documento de Identidad</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, "DId")
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, ClaimTypes.StreetAddress)
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Correo Electrónico</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, ClaimTypes.Email)
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Teléfono Fijo</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, ClaimTypes.HomePhone)
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Teléfono Móvil</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, ClaimTypes.MobilePhone)
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Otro Teléfono</label>
+                                    <br />
+                                    @ClaimHelper.GetClaim(User, ClaimTypes.OtherPhone)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">
+                        <i class="fa fa-home"></i>
+                        Domicilio
+                    </h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Domicilio</label>
+                                    <select asp-for="TipoDomicilio" class="form-control">
+                                        @foreach (Maestro m in (List<Maestro>)ViewData["H"])
+                                        {
+                                            <option value="@m.Valor">@m.Valor</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="TipoDomicilio" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-5 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">¿Cuántas personas viven ahí?</label>
+                                    <input asp-for="QPersonas" class="form-control" />
+                                    <span asp-validation-for="QPersonas" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">¿Es cubierto?</label>
+                                    <br />
+                                    <input type="radio" asp-for="Cubierto" value="1" /> Sí
+                                    &nbsp;
+                                    <input type="radio" asp-for="Cubierto" value="0" /> No
+                                    <span asp-validation-for="Cubierto" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">Motivo de Adopción</label>
+                                    <textarea asp-for="Ubicacion" class="form-control" maxlength="1000"></textarea>
+                                    <span asp-validation-for="Ubicacion" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">
+                        <i class="fa fa-group"></i>
+                        Familia
+                    </h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">¿Hay bebés en casa?</label>
+                                    <br />
+                                    <input type="radio" asp-for="Bebe" value="1" /> Sí
+                                    <br />
+                                    <input type="radio" asp-for="Bebe" value="0" /> No
+                                    <span asp-validation-for="Bebe" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">¿Hay integrantes alérgicos?</label>
+                                    <br />
+                                    <input type="radio" asp-for="Alergia" value="1" /> Sí
+                                    <br />
+                                    <input type="radio" asp-for="Alergia" value="0" /> No
+                                    <span asp-validation-for="Alergia" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label class="control-label">¿Tiene planes de mudarse pronto?</label>
+                                    <br />
+                                    <input type="radio" asp-for="Mudanza" value="1" /> Sí
+                                    <br />
+                                    <input type="radio" asp-for="Mudanza" value="0" /> No
+                                    <span asp-validation-for="Mudanza" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="form-group">
+                    <input type="submit" value="Enviar" class="btn btn-pets-turquoise" />
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

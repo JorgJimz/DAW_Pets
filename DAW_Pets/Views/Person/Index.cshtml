@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DAW_Pets.Models.Persona>
 <section class="container py-3">
     <p>
-        <a class="btn btn-primary" asp-action="Create">Nuevo Usuario</a>
+        <a class="btn btn-pets-turquoise" asp-action="Create">Nuevo Usuario</a>
     </p>
     <table class="table">
         <thead>
@@ -36,7 +36,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Direccion)
                 </th>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario.FirstOrDefault().Estado)
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -74,9 +76,14 @@
                         @Html.DisplayFor(modelItem => item.Direccion)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                        @if (item.Usuario.FirstOrDefault().Estado == 0)
+                        {
+                            <a class="btn btn-pets-turquoise" asp-action="Edit" asp-route-id="@item.Id">Activar</a>
+                        }
+                        else
+                        {
+                    <span class="badge rounded-pill bg-success">Activado</span>
+                        }
                     </td>
                 </tr>
             }

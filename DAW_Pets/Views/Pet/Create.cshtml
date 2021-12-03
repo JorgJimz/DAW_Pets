@@ -1,0 +1,201 @@
+﻿@model DAW_Pets.Models.Mascota
+<link rel="stylesheet" href="@Url.Content("~/lib/tagselect/jquery.multiselect.css")">
+<section class="container py-4">
+    <form asp-action="Create">
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Raza" class="control-label"></label>
+                    <input asp-for="Raza" class="form-control" />
+                    <span asp-validation-for="Raza" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Color" class="control-label"></label>
+                    <input asp-for="Color" class="form-control" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Edad" class="control-label"></label>
+                    <input asp-for="Edad" class="form-control" />
+                    <span asp-validation-for="Edad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Tipo" class="control-label"></label>
+                    <select asp-for="Tipo" class="form-control">
+                        @foreach (Maestro mE in ViewBag.Especie)
+                        {
+                            <option value="@mE.Atributo1"> @mE.Valor</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Tipo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Descripcion" class="control-label"></label>
+                    <input asp-for="Descripcion" class="form-control" />
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Direccion" class="control-label"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Situacion" class="control-label"></label>
+                    <select asp-for="Situacion" class="form-control">
+                        @foreach (Maestro mS in ViewBag.Situacion)
+                        {
+                            <option value="@mS.Atributo1"> @mS.Valor</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Situacion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Observaciones" class="control-label"></label>
+                    <input asp-for="Observaciones" class="form-control" />
+                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Alimentacion" class="control-label"></label>
+                    <input asp-for="Alimentacion" class="form-control" />
+                    <span asp-validation-for="Alimentacion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EsperanzaVida" class="control-label"></label>
+                    <input asp-for="EsperanzaVida" class="form-control" />
+                    <span asp-validation-for="EsperanzaVida" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ActividadFisica" class="control-label"></label>
+                    <select class="form-control" asp-for="ActividadFisica">
+                        @foreach (Maestro mA in ViewBag.Actividad)
+                        {
+                            <option value="@mA.Id"> @mA.Valor</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ActividadFisica" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Peso" class="control-label"></label>
+                    <input asp-for="Peso" class="form-control" />
+                    <span asp-validation-for="Peso" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Altura" class="control-label"></label>
+                    <input asp-for="Altura" class="form-control" />
+                    <span asp-validation-for="Altura" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Tamaño" class="control-label"></label>
+                    <select asp-for="Tamaño" class="form-control">
+                        @foreach (Maestro mt in ViewBag.Tamano)
+                        {
+                            <option value="@mt.Valor">@mt.Valor</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Tamaño" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Clima" class="control-label"></label>
+                    <div id="multi-select-clima">
+                        <select>
+                            @foreach (Maestro m in ViewBag.Clima)
+                            {
+                                <option value="@m.Valor">@m.Valor</option>
+                            }
+                        </select>
+                        <input asp-for="Clima" type="hidden" placeholder="Selected Values" />
+                    </div>
+                    <span asp-validation-for="Clima" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Habitat" class="control-label"></label>
+                    <div id="multi-select-habitat">
+                        <select>
+                            @foreach (Maestro m in ViewBag.Habitat)
+                            {
+                                <option value="@m.Valor">@m.Valor</option>
+                            }
+                        </select>
+                        <input asp-for="Habitat" type="hidden" placeholder="Selected Values" />
+                    </div>
+                    <span asp-validation-for="Habitat" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Caracter" class="control-label"></label>
+                    <div id="multi-select-caracter">
+                        <select>
+                            @foreach (Maestro m in ViewBag.Caracter)
+                            {
+                                <option value="@m.Valor">@m.Valor</option>
+                            }
+                        </select>
+                        <input asp-for="Caracter" type="hidden" placeholder="Selected Values" />
+                    </div>
+                    <span asp-validation-for="Caracter" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-12 pt-3">
+                <div class="form-group">
+                    <input type="submit" value="Registrar" class="btn btn-pets-turquoise" />
+                    <a class="btn btn-light" asp-action="Index">Regresar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+@section Scripts{
+    <script src="@Url.Content("~/lib/tagselect/jquery.multiselect.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#multi-select-caracter").multiSelect({
+                label: '[Seleccione Caracter]'
+            });
+            $("#multi-select-habitat").multiSelect({
+                label: '[Seleccione Habitat]'
+            });
+            $("#multi-select-clima").multiSelect({
+                label: '[Seleccione Clima]'
+            });
+        });
+    </script>
+}

@@ -33,7 +33,7 @@ namespace DAW_Pets.Models
         [Required(ErrorMessage = "Este campo es obligatorio.")]
         [Display(Name = "Teléfono Fijo")]
         public string Fijo { get; set; }
-        [Required(ErrorMessage ="Este campo es obligatorio.")]
+        [Required(ErrorMessage = "Este campo es obligatorio.")]
         [Display(Name = "Teléfono Móvil")]
         public string Telefono { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio.")]
@@ -41,7 +41,7 @@ namespace DAW_Pets.Models
         public string Trabajo { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio.")]
         [Display(Name = "Correo Electrónico")]
-        [EmailAddress(ErrorMessage ="Ingrese un correo electrónico válido.")]
+        [EmailAddress(ErrorMessage = "Ingrese un correo electrónico válido.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio.")]
         public string Direccion { get; set; }
@@ -51,8 +51,11 @@ namespace DAW_Pets.Models
         public string Pwd { get; set; }
         [NotMapped]
         [Display(Name = "Confirmar Contraseña")]
-        [Compare("Pwd", ErrorMessage ="Las contraseñas no coinciden.")]
+        [Compare("Pwd", ErrorMessage = "Las contraseñas no coinciden.")]
         public string ConfirmPwd { get; set; }
+        [NotMapped]
+        public int Estado { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
+
     }
 }

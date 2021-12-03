@@ -1,0 +1,26 @@
+﻿<style type="text/css">
+    .bg-pet-confirm {
+        background-image: url(@Url.Content("~/img/bn11.jpg"));
+        background-repeat: no-repeat;
+        background-size: 43%;
+        background-position: center;
+    }
+
+    .p-7 {
+        padding: 7rem !important;
+    }
+
+    .confirm-box {
+        height: 600px !important;
+        text-align: center;
+        background-color: #b1f9f6 !important;
+    }
+</style>
+<script type="text/javascript">
+    if ("@ViewBag.Accion" == "@DAW_Pets.Models.Helpers.HeaderEnum.Redireccion.ToString()") {
+        window.location.href = '@Url.Action("Index","Person")';
+    }
+</script>
+<div class="confirm-box bg-pet-confirm">
+    <h1 class="animate__animated animate__zoomInDown p-7">@ViewBag.Message</h1>
+</div>
