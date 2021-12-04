@@ -3,8 +3,8 @@
 <style>
     .bg-gradient-primary {
         color: white !important;
-        background-color: #4e73df;
-        background-image: linear-gradient( 180deg,#4e73df 10%,#224abe 100%);
+        background-color: #16a1bb !important;
+        background-image: linear-gradient( 180deg, #16a1bb 10%, #16a1bb 100%) !important;
         background-size: cover;
     }
 
@@ -41,8 +41,8 @@
                 @if (!User.Identity.IsAuthenticated)
                 {
                     <div class="col-md-3 text-end">
-                        <a href="@Url.Action("Index","Security")" class="btn btn btn-outline-light me-2">Iniciar Sesión</a>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#FrmRegistro">Registrarme</button>
+                        <a href="@Url.Action("Index","Security")" class="btn btn-light me-2">Iniciar Sesión</a>
+                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FrmRegistro">Registrarme</button>
                     </div>
                 }
                 else

@@ -18,13 +18,27 @@
           rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="@Url.Content("~/css/bootstrap-template/css/sb-admin-2.min.css")" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        .btn-pets-turquoise {
+            color: #fff;
+            background-color: #16a1bb;
+            border-color: #16a1bb;
+        }
 
+            .btn-pets-turquoise:hover {
+                color: white !important;
+            }
+
+        .bg-gradient-primary {
+            background-color: #b1f9f6;
+            background-image: linear-gradient( 180deg,#b1f9f6 10%,#16a1bb 100%);
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-primary">
-
     <div class="container">
-
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -33,11 +47,11 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 py-5">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4"><i class="fa fa-paws"></i> Pets To The Rescue</h1>
-                                    </div>      
+                                    </div>
                                     <form class="user" asp-controller="Security" asp-action="Login" method="post">
                                         <div class="form-group">
                                             <input type="text" placeholder="Ingrese su Usuario" class="form-control form-control-user"
@@ -47,25 +61,23 @@
                                             <input type="password" class="form-control form-control-user"
                                                    id="pwd" name="pwd" placeholder="Ingrese su Contraseña">
                                         </div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Iniciar Sesión" />                                            
+                                        <input type="submit" class="btn btn-pets-turquoise btn-user btn-block" value="Iniciar Sesión" />
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                    <div class="row">
+                                        <div class="col-lg-12 mt-3 text-center">
+                                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                                            {
+                                                <span class="text-danger"><b>@ViewBag.Message</b></span>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->

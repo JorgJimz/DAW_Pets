@@ -33,8 +33,9 @@ namespace DAW_Pets.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(string user, string pwd)
         {
-            var usr = _ws.GetById_Service<Usuario>("Servicios:Login", string.Format("{0}/{1}",user, pwd)).Result.Objeto;
-            if (usr is not null)
+            var rUsr = _ws.GetById_Service<Usuario>("Servicios:Login", string.Format("{0}/{1}",user, pwd));
+            var usr = rUsr.Result.Objeto;
+            if (usr.Id != 0)
             {
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, usr.Id.ToString()));
@@ -50,7 +51,11 @@ namespace DAW_Pets.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddHours(1) });
                 return RedirectToAction("Index", "Home");
             }
-            return View("Index");
+            else {
+                ViewBag.Message = rUsr.Result.Objeto.Header.DescRetorno;
+                return View("Index","Security");
+            }
+            
         }
 
         [HttpGet]

@@ -40,11 +40,11 @@
         --color: #16a1bb;
     }
 
-    .nav-link {
+    button[id$=-tab].nav-link {
         color: #495057 !important;
     }
 
-        .nav-link.active {
+        button[id$=-tab].nav-link.active {
             font-weight: bold;
             color: #16a1bb !important;
         }
@@ -149,7 +149,7 @@
                         </div>
                         <hr />
                         <div class="row">
-                            <div class="col-md-6 text-center"><button class="btn btn-pets-turquoise">Adóptame</button></div>
+                            <div class="col-md-6 text-center"><button class="btn btn-pets-turquoise" onclick="showAdoptTab()">Adóptame</button></div>
                             <div class="col-md-6 text-center"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Salir</button></div>
                         </div>
                     </div>
@@ -364,6 +364,11 @@
     }
 </div>
 <script type="text/javascript">
+
+    showAdoptTab = function () {
+        $('#solicitud-tab').trigger('click');
+    }
+
     refresh = function (xhr) {
         var comment = xhr.objeto;
         $("#btnGrabarComentario").css("display", "block");

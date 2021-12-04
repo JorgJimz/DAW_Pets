@@ -6,7 +6,11 @@ showInPopup = (url) => {
     $.ajax({
         type: 'GET',
         url: url,
+        beforeSend: function () {
+            $('.loader').css('display','block');
+        },
         success: function (res) {
+            $('.loader').css('display','none');
             $('#DetailsModal .modal-content').html(res);
             $('#DetailsModal').modal('show');
         }

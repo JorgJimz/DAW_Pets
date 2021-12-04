@@ -3,10 +3,18 @@
     ViewData["Title"] = "Index";
 }
 <style>
+    .text-black {
+        color: black !important;
+    }
+
     .carousel-img {
         background-color: #6ed7ea;
         background-size: contain;
         background-repeat: no-repeat;
+    }
+
+    .carousel {
+        margin-bottom: 2rem !important;
     }
 </style>
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -16,14 +24,14 @@
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active carousel-img" style="        background-image: url('@Url.Content("~/img/bn7.jpg")');
+        <div class="carousel-item active carousel-img" style="background-image: url('@Url.Content("~/img/bn7.jpg")');
         background-color: #fdd72e;
         background-position: left;">
             <div class="container">
-                <div class="carousel-caption text-end">
+                <div class="carousel-caption text-end text-black">
                     <h1>No se puede comprar la felicidad ...</h1>
                     <p>Pero puedes adoptar un amigo peludo, que es lo mismo.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">¡Adópta!</a></p>
+                    <p><a class="btn btn-lg btn-light" href="#">¡Adópta!</a></p>
                 </div>
             </div>
         </div>
@@ -33,9 +41,9 @@
 ">
             <div class="container">
                 <div class="carousel-caption text-end">
-                    <h1>Another example headline.</h1>
-                    <p>Some representative placeholder content for the second slide of the carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                    <h1>Adopta</h1>
+                    <p>Escribe una historia de vida junto a ellos ...</p>
+                    <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
                 </div>
             </div>
         </div>
@@ -45,9 +53,9 @@
 ">
             <div class="container">
                 <div class="carousel-caption text-start">
-                    <h1>One more for good measure.</h1>
-                    <p>Some representative placeholder content for the third slide of this carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                    <h1>Ayúdalos a regresar a casa</h1>
+                    <p>Forma parte del reencuentro con sus familias...</p>
+                    <p><a class="btn btn-lg btn-light" href="#">Ver más</a></p>
                 </div>
             </div>
         </div>
@@ -62,7 +70,7 @@
     </button>
 </div>
 <!-- Features section-->
-<section class="py-5 border-bottom justify-content-center" id="features">
+<section class="border-bottom justify-content-center" id="features">
     <div class="text-center mb-5">
         <h1 class="fw-bolder text-black">Servicios</h1>
     </div>
@@ -70,12 +78,12 @@
         <div class="row gx-5">
             <div class="col-lg-2 mb-5 mb-lg-0"></div>
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-heart"></i></div>
+                <div class="feature bg-gradient-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-heart fa-5x py-5"></i></div>
                 <h2 class="h4 fw-bolder">Adopción</h2>
                 <p>Adopta un peludo e inicia una historia de complicidad juntos.</p>
             </div>
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-search"></i></div>
+                <div class="feature bg-gradient-primary bg-gradient text-white rounded-3 mb-3"><i class="fa fa-search fa-5x py-5"></i></div>
                 <h2 class="h4 fw-bolder">Búsqueda</h2>
                 <p>¡Hey! hay peludos perdidos que necesitan de nuestra ayuda.</p>
             </div>
