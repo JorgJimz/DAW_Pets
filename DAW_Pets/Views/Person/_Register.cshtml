@@ -1,7 +1,9 @@
 ﻿@model DAW_Pets.Models.Persona
+@using System.Security.Claims;
+@inject DAW_Pets.LogicaNegocio.Interface.IWebServiceEngine _ws;
 <div id="Result">
     <form class="row p-3" asp-controller="Person" asp-action="Create" method="post" data-ajax="true" data-ajax-method="post"
-          data-ajax-update="#Result" data-ajax-loading="#spinner">
+          data-ajax-update="#Result" data-ajax-loading=".btn-w-spinner">
         <div asp-validation-summary="ModelOnly" class="col-md-12 text-danger"></div>
         <div class="col-md-6 mb-3">
             <div class="form-group">
@@ -87,17 +89,31 @@
                 <span asp-validation-for="Pwd" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-3">
             <div class="form-group">
                 <label asp-for="ConfirmPwd" class="control-label"></label>
                 <input asp-for="ConfirmPwd" class="form-control" />
                 <span asp-validation-for="ConfirmPwd" class="text-danger"></span>
             </div>
         </div>
+        @{ var roles = _ws.GetAll_Service<Rol>("Servicios:Roles").Result.Listado; }
+        <div class="col-md-12 mb-3" style="display: @( (User.Identity.IsAuthenticated && User.HasClaim(ClaimTypes.Role, "Admin"))? "block":"none" ) ">
+            <div class="form-group">
+                <label asp-for="TipoUsuario" class="control-label"></label>
+                <select asp-for="TipoUsuario" class="form-control">
+                    @foreach (Rol r in roles)
+                    {
+                        <option value="@r.Id">@r.Descripcion</option>
+                    }
+                </select>
+                <span asp-validation-for="TipoUsuario" class="text-danger"></span>
+            </div>
+        </div>
+
         <div class="col-md-12 text-right">
             <div class="form-group">
-                <input id="btnGrabar" type="submit" value="Grabar" class="btn btn-pets-turquoise" onclick="this.style.display = 'none'"/>
-                <button id="spinner" class="btn btn-pets-turquoise" style="display: none" type="button" disabled>
+                <input id="btnGrabar" type="submit" value="Grabar" class="btn btn-pets-turquoise" onclick="this.style.display = 'none'" />
+                <button class="btn-w-spinner btn btn-pets-turquoise" style="display: none" type="button" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     Enviando...
                 </button>

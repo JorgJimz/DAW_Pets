@@ -199,5 +199,25 @@ namespace DAW_Pets.LogicaNegocio
             response.Header = header;
             return response;
         }
+
+        public MaestroResponse GetAll_Estado()
+        {
+            MaestroResponse response = new MaestroResponse();
+            Header header = new Header();
+            try
+            {
+                response.Lista = _ws.GetAll_Service<Maestro>("Servicios:Maestro").Result.Listado.Where(x => x.Grupo.Equals(Constantes.EstadoSolicitud)).ToList();
+                header.CodigoRetorno = HeaderEnum.Correcto.ToString();
+                header.DescRetorno = string.Empty;
+            }
+            catch (Exception e)
+            {
+                header.CodigoRetorno = HeaderEnum.Incorrecto.ToString();
+                header.DescRetorno = e.Message;
+            }
+
+            response.Header = header;
+            return response;
+        }
     }
 }

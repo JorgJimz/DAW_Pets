@@ -15,5 +15,6 @@ namespace DAW_Pets.LogicaNegocio.Interface
         MaestroResponse GetAll_Clima();
         MaestroResponse GetAll_Habitat();
         MaestroResponse GetAll_Tamano();
+        MaestroResponse GetAll_Estado();
     }
 }

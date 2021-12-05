@@ -1,25 +1,20 @@
-﻿using DAW_Pets.Models;
+﻿using DAW_Pets.LogicaNegocio.Interface;
+using DAW_Pets.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DAW_Pets.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IWebServiceEngine _ws;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IWebServiceEngine _ws)
         {
-            _logger = logger;
+            this._ws = _ws;
         }
-
         public IActionResult Index()
-        {
+        {            
             return View();
         }
 

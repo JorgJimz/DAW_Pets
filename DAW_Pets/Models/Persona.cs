@@ -55,6 +55,9 @@ namespace DAW_Pets.Models
         public string ConfirmPwd { get; set; }
         [NotMapped]
         public int Estado { get; set; }
+        [NotMapped]
+        [Display(Name = "Tipo de Usuario")]
+        public int TipoUsuario { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
 
     }

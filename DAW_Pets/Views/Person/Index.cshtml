@@ -3,7 +3,12 @@
     <p>
         <a class="btn btn-pets-turquoise" asp-action="Create">Nuevo Usuario</a>
     </p>
-    <table class="table">
+    <div id="myAlert" class="alert alert-success d-flex align-items-center" role="alert">
+        <i class="fa fa-check-circle"></i> &nbsp;
+        <div class="alert-body">           
+        </div>
+    </div>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>
@@ -82,7 +87,7 @@
                         }
                         else
                         {
-                    <span class="badge rounded-pill bg-success">Activado</span>
+                            <span class="badge rounded-pill bg-success">Activado</span>
                         }
                     </td>
                 </tr>
@@ -90,3 +95,11 @@
         </tbody>
     </table>
 </section>
+@section Scripts{ 
+    <script type="text/javascript">
+        var msjRed = new URLSearchParams(window.location.search).get("msjRed");
+        if (msjRed != null) {
+            $('#myAlert .alert-body').text(msjRed);
+        }
+    </script>
+}

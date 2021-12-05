@@ -23,7 +23,7 @@ namespace DAW_Pets.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
+        {            
             var response = await _ws.GetAll_Service<Persona>("Servicios:Persona");
             return View(response.Listado);
         }
@@ -45,14 +45,14 @@ namespace DAW_Pets.Controllers
         }
 
         public IActionResult Create()
-        {
+        {            
             return View();
         }
 
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TipDoc,NumDoc,Nombre,Paterno,Materno,Fijo,Telefono,Trabajo,Email,Direccion,Pwd,ConfirmPwd,Estado")] Persona persona)
+        public async Task<IActionResult> Create([Bind("Id,TipDoc,NumDoc,Nombre,Paterno,Materno,Fijo,Telefono,Trabajo,Email,Direccion,Pwd,ConfirmPwd,Estado,TipoUsuario")] Persona persona)
         {
             if (ModelState.IsValid)
             {

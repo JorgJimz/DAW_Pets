@@ -1,121 +1,105 @@
 ﻿@model IEnumerable<DAW_Pets.Models.Solicitud>
+<section class="container py-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Detalle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QPersonas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoDomicilio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ubicacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cubierto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bebe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Alergia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mudanza)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoNavigation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mascota)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Detalle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QPersonas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoDomicilio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ubicacion)
+                    </td>
+                    <td>
+                        @(item.Cubierto == 1 ? "Sí":"No")
+                    </td>
+                    <td>
+                        @(item.Bebe == 1 ? "Sí":"No")
+                    </td>
+                    <td>
+                        @(item.Alergia == 1 ? "Sí":"No")
+                    </td>
+                    <td>
+                        @(item.Mudanza == 1 ? "Sí":"No")
+                    </td>
+                    <td>
+                        @switch (item.EstadoNavigation.Id)
+                        {
 
-@{
-    Layout = null;
-}
+                            case 52:
+                                <span class="badge bg-success">@Html.DisplayFor(modelItem => item.EstadoNavigation.Valor)</span>
+                                break;
+                            case 57:
+                                <span class="badge bg-danger">@Html.DisplayFor(modelItem => item.EstadoNavigation.Valor)</span>
+                                break;
+                            default:
+                                <span class="badge bg-info">@Html.DisplayFor(modelItem => item.EstadoNavigation.Valor)</span>
+                                break;
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Detalle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QPersonas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoDomicilio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cubierto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bebe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alergia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mudanza)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaModificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioModificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mascota)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Detalle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QPersonas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoDomicilio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ubicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cubierto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bebe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alergia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mudanza)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaModificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioModificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoNavigation.Grupo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mascota.Alimentacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>
-</html>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mascota.Nombre)
+                    </td>
+                    <td>
+                        @(string.Format("{0} {1}", item.Usuario.Persona.Nombre, item.Usuario.Persona.Paterno))
+                    </td>
+                    <td>
+                        <a class="btn btn-pets-turquoise mr-3 mb-3" asp-action="Edit" asp-controller="Solicitud" asp-route-id="@item.Id"><i class="fa fa-pen"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

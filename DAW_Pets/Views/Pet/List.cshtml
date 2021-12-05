@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DAW_Pets.Models.Mascota>
+<section class="container py-4">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <a class="btn btn-pets-turquoise" asp-action="Create">Nuevo Peludo</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Listado de Peludos</h4>
+        </div>
+        <div class="col-md-6">
+            <p class="text-end"><i class="fa fa-2x fa-dog"></i></p>
+        </div>
+        <hr />
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div id="myAlert" class="alert alert-success d-flex align-items-center" role="alert">
+                <i class="fa fa-check-circle"></i> &nbsp;
+                <div class="alert-body">
+                    @ViewBag.Message
+                </div>
+            </div>
+        }
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Raza)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Color)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Edad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Situacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Caracter)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Raza)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Edad)
+                        </td>
+                        <td>
+                            @( (item.Tipo.Equals("C"))? "Canino":"Felino" )
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            <span class="badge @(item.Situacion == "A"? "rounded-pill bg-warning":"rounded-pill bg-danger")">@(item.Situacion == "A"? "En Adopción":"Perdido")</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Caracter)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

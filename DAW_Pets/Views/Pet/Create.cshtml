@@ -1,7 +1,7 @@
 ﻿@model DAW_Pets.Models.Mascota
 <link rel="stylesheet" href="@Url.Content("~/lib/tagselect/jquery.multiselect.css")">
 <section class="container py-4">
-    <form asp-action="Create">
+    <form asp-action="Create" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,6 +36,7 @@
                 <div class="form-group">
                     <label asp-for="Tipo" class="control-label"></label>
                     <select asp-for="Tipo" class="form-control">
+                        <option value="">[Seleccione]</option>
                         @foreach (Maestro mE in ViewBag.Especie)
                         {
                             <option value="@mE.Atributo1"> @mE.Valor</option>
@@ -62,6 +63,7 @@
                 <div class="form-group">
                     <label asp-for="Situacion" class="control-label"></label>
                     <select asp-for="Situacion" class="form-control">
+                        <option value="">[Seleccione]</option>
                         @foreach (Maestro mS in ViewBag.Situacion)
                         {
                             <option value="@mS.Atributo1"> @mS.Valor</option>
@@ -95,6 +97,7 @@
                 <div class="form-group">
                     <label asp-for="ActividadFisica" class="control-label"></label>
                     <select class="form-control" asp-for="ActividadFisica">
+                        <option value="">[Seleccione]</option>
                         @foreach (Maestro mA in ViewBag.Actividad)
                         {
                             <option value="@mA.Id"> @mA.Valor</option>
@@ -121,6 +124,7 @@
                 <div class="form-group">
                     <label asp-for="Tamaño" class="control-label"></label>
                     <select asp-for="Tamaño" class="form-control">
+                        <option value="">[Seleccione]</option>
                         @foreach (Maestro mt in ViewBag.Tamano)
                         {
                             <option value="@mt.Valor">@mt.Valor</option>
@@ -172,6 +176,13 @@
                         <input asp-for="Caracter" type="hidden" placeholder="Selected Values" />
                     </div>
                     <span asp-validation-for="Caracter" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="ImagenFile" class="control-label"></label>
+                    <input type="file" asp-for="ImagenFile" class="form-control" />
+                    <span asp-validation-for="ImagenFile" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-12 pt-3">

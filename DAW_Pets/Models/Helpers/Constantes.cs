@@ -16,6 +16,7 @@ namespace DAW_Pets.Models.Helpers
         public static string Caracter = "CARACTER";
         public static string Habitat = "HABITAT";
         public static string Tamano = "TAMANO";
+        public static string EstadoSolicitud = "ADO_STAT";
 
     }
 

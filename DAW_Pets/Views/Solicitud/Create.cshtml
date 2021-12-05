@@ -11,9 +11,9 @@
         color: white !important;
     }
 </style>
-<section id="Result" class="container py-4">
+<section id="SolicitudResult" class="container py-4">
     <form asp-action="Create" asp-controller="Solicitud" method="post" data-ajax="true" data-ajax-method="post"
-          data-ajax-update="#Result" data-ajax-loading="#spinner">
+          data-ajax-update="#SolicitudResult" data-ajax-loading="#spinner">
         <div class="row mb-3">
             <div class="col-md-12">
                 <div class="card">
@@ -92,6 +92,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Domicilio</label>
                                     <select asp-for="TipoDomicilio" class="form-control">
+                                        <option value="">[Seleccione]</option>
                                         @foreach (Maestro m in (List<Maestro>)ViewData["H"])
                                         {
                                             <option value="@m.Valor">@m.Valor</option>

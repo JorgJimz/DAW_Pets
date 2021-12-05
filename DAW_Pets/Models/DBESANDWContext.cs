@@ -159,7 +159,7 @@ namespace DAW_Pets.Models
 
                 entity.Property(e => e.Tamaño)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(2)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Tipo)

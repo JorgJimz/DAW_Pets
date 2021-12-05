@@ -1,9 +1,12 @@
 ﻿using DAW_Pets.LogicaNegocio.Interface;
 using DAW_Pets.Models;
 using DAW_Pets.Models.Helpers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,13 +16,21 @@ namespace DAW_Pets.Controllers
     {
         private readonly IWebServiceEngine _ws;
         private readonly IMaestro _maestro;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public PetController(IWebServiceEngine _ws, IMaestro _maestro)
+        public PetController(IWebServiceEngine _ws, IMaestro _maestro, IHostingEnvironment _hostingEnvironment)
         {
             this._maestro = _maestro;
             this._ws = _ws;
+            this._hostingEnvironment = _hostingEnvironment;
         }
         public async Task<IActionResult> Index()
+        {
+            var response = await _ws.GetAll_Service<Mascota>("Servicios:Mascota");
+            return View(response.Listado);
+        }
+
+        public async Task<IActionResult> List()
         {
             var response = await _ws.GetAll_Service<Mascota>("Servicios:Mascota");
             return View(response.Listado);
@@ -36,7 +47,7 @@ namespace DAW_Pets.Controllers
         public async Task<IActionResult> CreateComment(Mascota ComentarioMascota)
         {
             WS_Response<Comentario> nComment = null;
-            if (ModelState.IsValid)
+            if (ModelState.GetFieldValidationState("NeoComentario") == ModelValidationState.Valid)
             {
                 Comentario c = new Comentario()
                 {
@@ -101,14 +112,24 @@ namespace DAW_Pets.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Raza,Color,Edad,Tipo,Descripcion,Direccion,Situacion,Observaciones,Alimentacion,EsperanzaVida,ActividadFisica,Peso,Altura,Tamaño,Clima,Habitat,Caracter")] Mascota mascota)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Raza,Color,Edad,Tipo,Descripcion,Direccion,Situacion,Observaciones,Alimentacion,EsperanzaVida,ActividadFisica,Peso,Altura,Tamaño,Clima,Habitat,Caracter,ImagenFile")] Mascota mascota)
         {
             if (ModelState.IsValid)
             {
+                if (mascota.ImagenFile != null)
+                {
+                    var uniqueFileName = GetUniqueFileName(mascota.ImagenFile.FileName);
+                    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+                    var filePath = Path.Combine(uploads, uniqueFileName);
+                    mascota.ImagenFile.CopyTo(new FileStream(filePath, FileMode.Create));
+                    mascota.Imagen = uniqueFileName;
+                }
                 var rs = await _ws.Post_Service<Mascota>("Servicios:Mascota", mascota);
+                ViewBag.Message = rs.Header.DescRetorno;
+                return RedirectToAction("List");
             }
 
-            return PartialView("_Info");
+            return View();
         }
 
         public ActionResult Edit(int id)
@@ -147,6 +168,15 @@ namespace DAW_Pets.Controllers
             {
                 return View();
             }
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
     }
 }

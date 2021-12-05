@@ -6,6 +6,11 @@
         background-image: url(@Url.Content("~/img/oficial_bg.jpg") );
     }
 
+    .detail-img {
+        min-width: 290px !important;
+        min-height: 290px !important;
+    }
+
     .border-daw-pet-aqua {
         border-color: #16a1bb !important;
     }
@@ -97,9 +102,11 @@
                 <div class="col-4 bg-daw-pets">
                     <div class="row mb-2">
                         <div class="col-12 text-center p-3">
-                            <img class="img-fluid rounded-circle mb-2 brd-pet" src="https://cdn.wamiz.fr/cdn-cgi/image/quality=80,width=360,height=360,fit=cover/https://cdn.wamiz.fr/animal/breed/pictures/613f5a196dba9452676561.jpg" width="290" height="390" />
                         </div>
                         <div class="row text-white">
+                            <div class="col-md-12 text-center">
+                                <img class="img-thumbnail rounded-circle mb-2 brd-pet detail-img" src="~/Uploads/@Model.Imagen" width="290" height="290"/>
+                            </div>                            
                             <div class="col-md-3">
                                 <span class="fa-stack fa-2x">
                                     <i class="fas fa-square fa-stack-2x fg-turquoise"></i>
@@ -351,11 +358,18 @@
                             }
                             else
                             {
-                                <div class="row h-100 pt-3" style="height: 613px !important;">
-                                    @{await Html.RenderPartialAsync("../Solicitud/Create", new Solicitud(), new ViewDataDictionary(ViewData) { { "H", ViewBag.Habitat },{ "MascotaId", Model.Id } }); }
-                                </div>
+                                @if(Model.Solicitud.Any(x => x.UsuarioId == int.Parse(ClaimHelper.GetNameIdentifier(User)))){                                            
+                                    <div class="alert alert-info mb-0 rounded-0 text-center mt-3" role="alert">
+                                        Ya tiene una solicitud de adopción pendiente. Por favor, espere la respuesta.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row h-100 pt-3" style="height: 613px !important;">
+                                        @{await Html.RenderPartialAsync("../Solicitud/Create", new Solicitud(), new ViewDataDictionary(ViewData) { { "H", ViewBag.Habitat }, { "MascotaId", Model.Id } }); }
+                                    </div>
+                                }
                             }
-
                         </div>
                     </div>
                 </div>
